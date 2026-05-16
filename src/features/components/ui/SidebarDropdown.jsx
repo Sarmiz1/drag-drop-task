@@ -1,10 +1,11 @@
 import { ChevronDown, Folder, Cog, Check, Flame } from "lucide-react";
 import { useState } from "react";
+import { useTheme } from "../../../context/ThemeContext";
 
 const SidebarDropdown = ({ sidebarTabs = [] }) => {
   // Use an object to track the open state of each individual tab by its ID
   const [openTabs, setOpenTabs] = useState({});
-  const IconSize = 14;
+  const { iconSizes } = useTheme();
 
   const toggleTab = (id) => {
     setOpenTabs((prev) => ({
@@ -29,13 +30,13 @@ const SidebarDropdown = ({ sidebarTabs = [] }) => {
                 {(() => {
                   switch (tab.id) {
                     case 1:
-                      return <Folder size={IconSize} />;
+                      return <Folder size={iconSizes.sm} />;
                     case 2:
-                      return <Flame size={IconSize} />;
+                      return <Flame size={iconSizes.sm} />;
                     case 3:
-                      return <Cog size={IconSize} />;
+                      return <Cog size={iconSizes.sm} />;
                     case 4:
-                      return <Check size={IconSize} />;
+                      return <Check size={iconSizes.sm} />;
                     default:
                       return null;
                   }
@@ -47,7 +48,7 @@ const SidebarDropdown = ({ sidebarTabs = [] }) => {
                 transition-transform duration-200 ease-in-out flex items-center justify-center`}
               >
                 <button className="cursor-pointer flex items-center justify-center">
-                  <ChevronDown size={IconSize} />
+                  <ChevronDown size={iconSizes.sm} />
                 </button>
               </div>
             </div>

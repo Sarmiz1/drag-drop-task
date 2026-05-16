@@ -1,21 +1,13 @@
-import {
-  SlidersHorizontal,
-  Timer,
-  Settings,
-  Calendar,
-  LayoutGrid,
-  Dot,
-} from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { useState } from "react";
 import { Logo } from "./ui/Logo";
+import { useTheme } from "../../context/ThemeContext";
+import { teamMembers, iconSidebarIcons } from "../../data/initialBoard";
 
 const IconSidebar = () => {
   // Track the currently active icon by index
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const iconSize = 17;
-
-  const icons = [LayoutGrid, SlidersHorizontal, Timer, Settings, Calendar];
+  const { iconSizes } = useTheme();
 
   return (
     <div
@@ -27,9 +19,12 @@ const IconSidebar = () => {
 
       {/* Middle Section - Navigation Icons */}
       <div className="flex flex-col items-center gap-6 w-full">
-        {icons.map((Icon, index) => {
+        {iconSidebarIcons.map((iconName, index) => {
+          const Icon = LucideIcons[iconName];
           const isActive = activeIndex === index;
-          const isSettings = Icon === Settings;
+          const isSettings = iconName === "Settings";
+
+          if (!Icon) return null;
 
           return (
             <div
@@ -41,7 +36,7 @@ const IconSidebar = () => {
               `}
             >
               <Icon
-                size={iconSize}
+                size={iconSizes.lg}
                 className={`transition-transform duration-300 ${isActive ? "scale-110" : ""}`}
               />
 
@@ -53,7 +48,7 @@ const IconSidebar = () => {
               {/* Active Dot Indicator */}
               {isActive && (
                 <div className="absolute -right-3 flex items-center justify-center animate-pulse">
-                  <Dot
+                  <LucideIcons.Dot
                     size={32}
                     className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
                   />
@@ -68,7 +63,7 @@ const IconSidebar = () => {
       <div className="rounded-full bg-gradient-to-tr from-gray-300 to-gray-50 h-10 w-10 mt-auto p-[2px] cursor-pointer hover:scale-105 transition-transform duration-300 shadow-md">
         <div className="bg-[var(--color-primary)] w-full h-full rounded-full flex items-center justify-center overflow-hidden">
           <img
-            src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=transparent"
+            src={teamMembers[0].img}
             alt="User Avatar"
             className="w-full h-full object-cover bg-white"
           />

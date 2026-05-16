@@ -38,10 +38,11 @@ function TaskCard({ task: taskData }) {
         </h3>
 
         {/* Optional Description Snippet */}
-        <p className="text-gray-400 text-xs line-clamp-2 mb-4 leading-relaxed">
-          Create wireframes and high-fidelity mockups for the new marketing
-          website...
-        </p>
+        {description && (
+          <p className="text-gray-400 text-xs line-clamp-2 mb-4 leading-relaxed">
+            {description}
+          </p>
+        )}
 
         {/* Subtle Divider */}
         <div className="w-full h-[1px] bg-gray-50 mb-3"></div>
@@ -51,16 +52,18 @@ function TaskCard({ task: taskData }) {
           <div className="flex items-center gap-3 text-gray-400">
             <div className="flex items-center gap-1.5 hover:text-gray-600 transition-colors cursor-pointer">
               <MessageSquare size={iconSizes.sm} />
-              <span className="text-xs font-medium">3</span>
+              <span className="text-xs font-medium">{comments}</span>
             </div>
             <div className="flex items-center gap-1.5 hover:text-gray-600 transition-colors cursor-pointer">
               <Paperclip size={iconSizes.sm} />
-              <span className="text-xs font-medium">1</span>
+              <span className="text-xs font-medium">{attachments}</span>
             </div>
           </div>
 
-          <div className="flex -space-x-2">
-            <MembersCard />
+          <div className="scale-90 origin-right">
+            {assignees && assignees.length > 0 && (
+              <MembersCard members={assignees} />
+            )}
           </div>
         </div>
       </div>

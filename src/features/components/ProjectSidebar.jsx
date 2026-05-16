@@ -1,41 +1,6 @@
 import { Plus } from "lucide-react";
 import SidebarDropdown from "./ui/SidebarDropdown";
-
-const sidebarTabs = [
-  {
-    id: 1,
-    title: "All projects",
-    icon: "fa fa-folder",
-    contents: [
-      {
-        id: 1,
-        title: "Subproject 1",
-        active: true,
-      },
-      {
-        id: 2,
-        title: "Subproject 2",
-        active: false,
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "Hot tasks",
-    icon: "fa fa-fire",
-    contents: [],
-  },
-  {
-    id: 3,
-    title: "In process",
-    icon: "fa fa-cog",
-  },
-  {
-    id: 4,
-    title: "Done",
-    icon: "fa fa-check",
-  },
-];
+import { sidebarTabs } from "../../data/initialBoard";
 
 const ProjectSidebar = () => {
   const IconSize = 14;
