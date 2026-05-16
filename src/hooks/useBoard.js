@@ -229,6 +229,8 @@ export const useBoard = (activeProjectId) => {
     handleUpdateTask,
     handleDeleteTask,
     handleAddTaskMember,
+    handleAddComment,
+    handleAddAttachment,
     handleDragStart,
     handleDragOver,
     handleDragEnd,
