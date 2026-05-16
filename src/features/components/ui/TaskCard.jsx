@@ -2,11 +2,8 @@ import { Ellipsis, MessageSquare, Paperclip } from "lucide-react";
 import MembersCard from "./MembersCard";
 import { useTheme } from "../../../context/ThemeContext";
 
-function TaskCard({
-  title = "Design new landing page",
-  tag = "UI Design",
-  priority = "High",
-}) {
+function TaskCard({ task: taskData }) {
+  const { title, description, tag, priority, comments, attachments, assignees } = taskData;
   const { task, iconSizes } = useTheme();
 
   const currentTagStyle = task.tags[tag] || task.defaultTag;
