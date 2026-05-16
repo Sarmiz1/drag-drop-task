@@ -1,16 +1,8 @@
 import { Plus } from "lucide-react";
-
-// Premium gradients for avatar backgrounds (looks amazing with transparent SVG avatars)
-const cardColors = [
-  "bg-gradient-to-tr from-blue-300 to-indigo-400",
-  "bg-gradient-to-tr from-emerald-300 to-teal-400",
-  "bg-gradient-to-tr from-rose-300 to-pink-400",
-  "bg-gradient-to-tr from-amber-300 to-orange-400",
-  "bg-gradient-to-tr from-purple-300 to-fuchsia-400",
-];
+import { useTheme } from "../../../context/ThemeContext";
 
 const MembersCard = ({ members = [] }) => {
-  const IconSize = 18;
+  const { avatarGradients, iconSizes } = useTheme();
 
   // Provide mock data if members array is empty for visual testing
   const displayMembers =
@@ -34,7 +26,7 @@ const MembersCard = ({ members = [] }) => {
   return (
     <div className="flex items-center -space-x-2.5">
       {displayMembers.map((member, index) => {
-        const bgClass = cardColors[index % cardColors.length];
+        const bgClass = avatarGradients[index % avatarGradients.length];
 
         return (
           <div
@@ -62,7 +54,7 @@ const MembersCard = ({ members = [] }) => {
         hover:text-blue-600 hover:border-blue-400 hover:border-solid hover:bg-blue-50 
         transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:!z-[100]"
       >
-        <Plus size={IconSize} strokeWidth={2.5} />
+        <Plus size={iconSizes.lg} strokeWidth={2.5} />
       </button>
     </div>
   );

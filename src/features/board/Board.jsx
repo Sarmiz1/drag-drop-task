@@ -1,72 +1,42 @@
-import { Plus } from "lucide-react";
+import BoardColumn from "./BoardColumn";
 import TaskCard from "../components/ui/TaskCard";
 
 const Board = () => {
-  const iconSize = 16;
-  const contentCount = 3;
   return (
-    <section className="grid grid-cols-3 p-5 gap-12">
-      {/*       BoardColumn.jsx  */}
-      {/* Todo */}
-      <div>
-        <div className="flex items-center">
-          <h2 className="text-base font-semibold flex items-center gap-2">
-            To do{" "}
-            <span
-              className="bg-gray-100 w-5 h-5 flex items-center justify-center 
-        rounded-full text-black/50 text-sm"
-            >
-              {contentCount}
-            </span>
-          </h2>
-          <span
-            className="bg-gray-100 w-10 h-6 flex items-center justify-center 
-        rounded-full text-black/50 ml-auto"
-          >
-            <Plus size={iconSize} />
-          </span>
-        </div>
+    <section className="grid grid-cols-1 lg:grid-cols-3 p-6 gap-6 lg:gap-8 h-full min-h-[calc(100vh-100px)] overflow-x-auto">
+      {/* Todo Column */}
+      <BoardColumn title="To do" count={3}>
+        <TaskCard
+          title="Design new landing page"
+          tag="UI Design"
+          priority="High"
+        />
+        <TaskCard title="Create user flows" tag="Research" priority="Medium" />
+        <TaskCard title="Update design system" tag="UI Design" priority="Low" />
+      </BoardColumn>
 
-        <TaskCard />
-      </div>
+      {/* In Progress Column */}
+      <BoardColumn title="In progress" count={1}>
+        <TaskCard
+          title="Implement board layout"
+          tag="Development"
+          priority="High"
+        />
+      </BoardColumn>
 
-      {/* In progress */}
-      <div className="flex items-center">
-        <h2 className="text-base font-semibold flex items-center gap-2">
-          In progress{" "}
-          <span
-            className="bg-gray-100 w-5 h-5 flex items-center justify-center 
-        rounded-full text-black/50 text-sm"
-          >
-            {contentCount}
-          </span>
-        </h2>
-        <span
-          className="bg-gray-100 w-10 h-6 flex items-center justify-center 
-        rounded-full text-black/50 ml-auto"
-        >
-          <Plus size={iconSize} />
-        </span>
-      </div>
-
-      {/* Done */}
-      <div className="flex items-center">
-        <h2 className="text-base font-semibold flex items-center gap-2">
-          Done{" "}
-          <span
-            className="bg-gray-100 w-5 h-5 flex items-center justify-center 
-        rounded-full text-black/50 text-sm"
-          >
-            {contentCount}
-          </span>
-        </h2>
-        <span
-          className="bg-gray-100 w-10 h-6 flex items-center justify-center 
-        rounded-full text-black/50 ml-auto"
-        >
-          <Plus size={iconSize} />
-        </span>
-      </div>
+      {/* Done Column */}
+      <BoardColumn title="Done" count={2}>
+        <TaskCard
+          title="Setup React project"
+          tag="Development"
+          priority="Low"
+        />
+        <TaskCard
+          title="Configure Tailwind CSS"
+          tag="Development"
+          priority="Low"
+        />
+      </BoardColumn>
     </section>
   );
 };

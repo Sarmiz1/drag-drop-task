@@ -1,29 +1,16 @@
 import { Ellipsis, MessageSquare, Paperclip } from "lucide-react";
 import MembersCard from "./MembersCard";
+import { useTheme } from "../../../context/ThemeContext";
 
 function TaskCard({
   title = "Design new landing page",
   tag = "UI Design",
   priority = "High",
 }) {
-  const iconSize = 14;
+  const { task, iconSizes } = useTheme();
 
-  // Dynamic tag colors
-  const tagStyles = {
-    "UI Design": "bg-purple-100 text-purple-700",
-    Development: "bg-blue-100 text-blue-700",
-    Research: "bg-orange-100 text-orange-700",
-  };
-
-  // Dynamic priority edge colors
-  const priorityColors = {
-    High: "bg-red-400",
-    Medium: "bg-yellow-400",
-    Low: "bg-green-400",
-  };
-
-  const currentTagStyle = tagStyles[tag] || "bg-gray-100 text-gray-700";
-  const priorityColor = priorityColors[priority] || "bg-gray-300";
+  const currentTagStyle = task.tags[tag] || task.defaultTag;
+  const priorityColor = task.priorities[priority] || task.defaultPriority;
 
   return (
     <article
@@ -66,11 +53,11 @@ function TaskCard({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-gray-400">
             <div className="flex items-center gap-1.5 hover:text-gray-600 transition-colors cursor-pointer">
-              <MessageSquare size={iconSize} />
+              <MessageSquare size={iconSizes.sm} />
               <span className="text-xs font-medium">3</span>
             </div>
             <div className="flex items-center gap-1.5 hover:text-gray-600 transition-colors cursor-pointer">
-              <Paperclip size={iconSize} />
+              <Paperclip size={iconSizes.sm} />
               <span className="text-xs font-medium">1</span>
             </div>
           </div>
