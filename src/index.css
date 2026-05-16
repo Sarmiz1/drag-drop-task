@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+
+
+:root {
+  --color-primary: #6C3DF4;
+  --color-bg: #E7ECF6;
+  --color-surface: #FFFFFF;
+  --color-text: #111827;
+  --color-muted: #6B7280;
+}
+
+
+@theme {
+  /* Links Poppins to font-heading utility class */
+  --font-heading: 'Poppins', sans-serif;
+  
+  /* Links Roboto to font-body utility class */
+  --font-body: 'Roboto', sans-serif;
+}
