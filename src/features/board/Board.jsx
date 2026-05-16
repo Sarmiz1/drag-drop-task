@@ -27,6 +27,7 @@ const Board = ({
   handleUpdateTask,
   handleDeleteTask,
   handleDragStart, 
+  handleDragOver,
   handleDragEnd,
   activeFilters = [],
   searchQuery = "",
