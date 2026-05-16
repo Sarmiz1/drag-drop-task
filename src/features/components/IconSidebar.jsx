@@ -1,12 +1,10 @@
 import * as LucideIcons from "lucide-react";
-import { useState } from "react";
+import { memo } from "react";
 import { Logo } from "./ui/Logo";
 import { useTheme } from "../../context/ThemeContext";
 import { teamMembers, iconSidebarIcons } from "../../data/initialBoard";
 
-const IconSidebar = () => {
-  // Track the currently active icon by index
-  const [activeIndex, setActiveIndex] = useState(0);
+const IconSidebar = ({ activeIndex, setActiveIndex }) => {
   const { iconSizes } = useTheme();
 
   return (

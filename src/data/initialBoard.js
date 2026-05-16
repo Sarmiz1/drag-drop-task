@@ -15,6 +15,10 @@ export const teamMembers = [
 
 export const sidebarTabs = [
   {
+    header: 'Projects',
+    id: 0,
+    tabContent: [
+      {
     id: 1,
     title: "Projects",
     contents: [
@@ -40,6 +44,9 @@ export const sidebarTabs = [
     title: "Completed",
     contents: [],
   },
+    ]
+  }
+  
 ];
 
 export const iconSidebarIcons = [
