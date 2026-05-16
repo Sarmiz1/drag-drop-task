@@ -42,6 +42,14 @@ export const sidebarTabs = [
   },
 ];
 
+export const iconSidebarIcons = [
+  "LayoutGrid",
+  "SlidersHorizontal",
+  "Timer",
+  "Settings",
+  "Calendar",
+];
+
 export const initialBoardData = [
   {
     id: "col-1",
