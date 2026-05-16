@@ -11,15 +11,24 @@ import { useLayout } from "./hooks/useLayout";
 import { useTeam } from "./hooks/useTeam";
 import SettingsModal from "./features/components/SettingsModal";
 import InfoModal from "./features/components/InfoModal";
+import CommentsModal from "./features/components/CommentsModal";
+import AttachmentsModal from "./features/components/AttachmentsModal";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [activeExtraModal, setActiveExtraModal] = useState(null); // 'comments' | 'attachments' | null
+  const [selectedTask, setSelectedTask] = useState(null);
   const [settingsModal, setSettingsModal] = useState({ isOpen: false, activeTab: "Profile" });
   const { mobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useLayout();
   const { activeIndex, setActiveIndex, sidebarTabs, activeProjectTitle, activeProjectId, activeFilters, handleAddProject, handleSelectProject } = useSidebar();
   const { members, handleAddMember } = useTeam();
   const boardProps = useBoard(activeProjectId);
+
+  const openExtraModal = (type, task) => {
+    setSelectedTask(task);
+    setActiveExtraModal(type);
+  };
 
   const onSelectProject = (itemId) => {
     const item = handleSelectProject(itemId);
