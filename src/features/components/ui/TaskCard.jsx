@@ -98,7 +98,7 @@ function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions, onViewCo
               className="flex items-center gap-1.5 hover:text-blue-600 transition-colors cursor-pointer group/meta"
             >
               <MessageSquare size={iconSizes.sm} className="group-hover/meta:scale-110 transition-transform" />
-              <span className="text-xs font-medium">{comments}</span>
+              <span className="text-xs font-medium">{Array.isArray(comments) ? comments.length : comments}</span>
             </div>
             <div 
               onClick={(e) => {
@@ -108,7 +108,7 @@ function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions, onViewCo
               className="flex items-center gap-1.5 hover:text-blue-600 transition-colors cursor-pointer group/meta"
             >
               <Paperclip size={iconSizes.sm} className="group-hover/meta:scale-110 transition-transform" />
-              <span className="text-xs font-medium">{attachments}</span>
+              <span className="text-xs font-medium">{Array.isArray(attachments) ? attachments.length : attachments}</span>
             </div>
           </div>
 

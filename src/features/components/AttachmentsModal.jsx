@@ -1,13 +1,18 @@
 import React from 'react';
 import { X, File, Download, ExternalLink, Plus } from 'lucide-react';
 
-const AttachmentsModal = ({ isOpen, onClose, taskTitle }) => {
+const AttachmentsModal = ({ isOpen, onClose, taskTitle, attachments = [], onAddAttachment }) => {
   if (!isOpen) return null;
 
-  const mockAttachments = [
-    { id: 1, name: "Landing_Page_Wireframe.pdf", size: "2.4 MB", type: "PDF", date: "Oct 12, 2023" },
-    { id: 2, name: "Style_Guide_v2.fig", size: "12.8 MB", type: "FIGMA", date: "Oct 14, 2023" },
-  ];
+  const handleUpload = () => {
+    onAddAttachment({
+      id: Date.now(),
+      name: `New_Upload_${Date.now()}.pdf`,
+      size: "1.2 MB",
+      type: "PDF",
+      date: "Just now"
+    });
+  };
 
   return (
     <div 
@@ -36,7 +41,7 @@ const AttachmentsModal = ({ isOpen, onClose, taskTitle }) => {
 
           {/* Attachments List */}
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            {mockAttachments.map((file) => (
+            {attachments.map((file) => (
               <div key={file.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl group hover:bg-blue-50 transition-all border border-transparent hover:border-blue-100">
                 <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-blue-600 shadow-sm">
                   <File size={24} />
@@ -57,7 +62,10 @@ const AttachmentsModal = ({ isOpen, onClose, taskTitle }) => {
             ))}
 
             {/* Upload Area */}
-            <button className="w-full py-8 border-2 border-dashed border-gray-100 rounded-[2rem] flex flex-col items-center justify-center gap-2 text-gray-400 hover:text-blue-500 hover:border-blue-200 hover:bg-blue-50/30 transition-all group">
+            <button 
+              onClick={handleUpload}
+              className="w-full py-8 border-2 border-dashed border-gray-100 rounded-[2rem] flex flex-col items-center justify-center gap-2 text-gray-400 hover:text-blue-500 hover:border-blue-200 hover:bg-blue-50/30 transition-all group"
+            >
               <div className="p-3 bg-gray-50 rounded-full group-hover:bg-blue-100 transition-colors">
                 <Plus size={24} />
               </div>

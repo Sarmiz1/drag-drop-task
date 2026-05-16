@@ -114,12 +114,24 @@ function App() {
       <CommentsModal 
         isOpen={activeExtraModal === 'comments'}
         taskTitle={selectedTask?.title}
+        comments={
+          boardProps.boardData
+            .flatMap(col => col.tasks)
+            .find(t => t.id === selectedTask?.id)?.comments
+        }
+        onAddComment={(comment) => boardProps.handleAddComment(selectedTask.id, comment)}
         onClose={() => setActiveExtraModal(null)}
       />
 
       <AttachmentsModal 
         isOpen={activeExtraModal === 'attachments'}
         taskTitle={selectedTask?.title}
+        attachments={
+          boardProps.boardData
+            .flatMap(col => col.tasks)
+            .find(t => t.id === selectedTask?.id)?.attachments
+        }
+        onAddAttachment={(file) => boardProps.handleAddAttachment(selectedTask.id, file)}
         onClose={() => setActiveExtraModal(null)}
       />
     </div>
