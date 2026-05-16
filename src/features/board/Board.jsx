@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import {
   DndContext,
   PointerSensor,
@@ -35,33 +36,29 @@ const Board = ({
   onViewComments,
   onViewAttachments
 }) => {
-  // Use a unique key to trigger animations when the board data changes significantly (like project switch)
-  // We can't easily get the project ID here unless we pass it, so let's just use the columns as a proxy 
-  // or expect it in props.
-  
-  // Filter the data based on active filters and search query
-  const filteredBoardData = boardData.map(column => ({
-    ...column,
-    tasks: column.tasks.filter(task => {
-      // 1. Filter by Search Query
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        const matchesTitle = task.title.toLowerCase().includes(query);
-        const matchesDesc = task.description.toLowerCase().includes(query);
-        if (!matchesTitle && !matchesDesc) return false;
-      }
+  // Memoize the filtered data to avoid expensive re-calculations on unrelated renders
+  const filteredBoardData = useMemo(() => {
+    return boardData.map(column => ({
+      ...column,
+      tasks: column.tasks.filter(task => {
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          const matchesTitle = task.title.toLowerCase().includes(query);
+          const matchesDesc = task.description.toLowerCase().includes(query);
+          if (!matchesTitle && !matchesDesc) return false;
+        }
 
-      // 2. Filter by Active Filters (Priority)
-      if (activeFilters.length > 0) {
-        const priorityMatch = activeFilters.some(filter => 
-          filter.toLowerCase().includes(task.priority.toLowerCase())
-        );
-        if (!priorityMatch) return false;
-      }
-      
-      return true;
-    })
-  }));
+        if (activeFilters.length > 0) {
+          const priorityMatch = activeFilters.some(filter => 
+            filter.toLowerCase().includes(task.priority.toLowerCase())
+          );
+          if (!priorityMatch) return false;
+        }
+        
+        return true;
+      })
+    }));
+  }, [boardData, searchQuery, activeFilters]);
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { arrayMove } from '@dnd-kit/sortable';
 import { initialBoardData } from '../data/initialBoard';
 
@@ -11,8 +11,10 @@ export const useBoard = (activeProjectId) => {
   const [activeTask, setActiveTask] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
 
-  // Get current board or create a default one if it doesn't exist
-  const boardData = allBoards[activeProjectId] || initialBoardData.map(col => ({ ...col, tasks: [] }));
+  // Memoize the board data to prevent referential changes on every render
+  const boardData = useMemo(() => {
+    return allBoards[activeProjectId] || initialBoardData.map(col => ({ ...col, tasks: [] }));
+  }, [allBoards, activeProjectId]);
 
   const setBoardData = useCallback((updater) => {
     setAllBoards((prev) => {
@@ -26,10 +28,10 @@ export const useBoard = (activeProjectId) => {
   }, [activeProjectId]);
 
   const findColumn = useCallback((id) => {
-    if (boardData.find((col) => col.id === id)) {
-      return id;
-    }
-    return boardData.find((col) => col.tasks.find((task) => task.id === id))?.id;
+    const col = boardData.find((c) => c.id === id);
+    if (col) return col.id;
+
+    return boardData.find((c) => c.tasks.some((t) => t.id === id))?.id;
   }, [boardData]);
 
   const handleAddTask = useCallback((columnId) => {
