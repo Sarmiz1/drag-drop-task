@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import "./App.css";
 import TopBar from "./features/components/TopBar";
 import Sidebar from "./features/components/Sidebar";
@@ -25,13 +25,22 @@ function App() {
   const { members, handleAddMember } = useTeam();
   const boardProps = useBoard(activeProjectId);
 
+  // Memoize the specific task being viewed in an extra modal
+  // This prevents expensive searching through the entire board data on every render (e.g., search typing)
+  const activeExtraTaskDetails = useMemo(() => {
+    if (!selectedTask?.id) return null;
+    return boardProps.boardData
+      .flatMap(col => col.tasks)
+      .find(t => t.id === selectedTask.id);
+  }, [boardProps.boardData, selectedTask?.id]);
+
   const openExtraModal = (type, task) => {
     setSelectedTask(task);
     setActiveExtraModal(type);
   };
 
   const onSelectProject = (itemId) => {
-    const item = handleSelectProject(itemId);
+    handleSelectProject(itemId);
     // Detect if "Profile" (3001) or "Billing" (3002) was clicked
     if (itemId === 3001 || itemId === 3002) {
       setSettingsModal({ 
@@ -114,11 +123,7 @@ function App() {
       <CommentsModal 
         isOpen={activeExtraModal === 'comments'}
         taskTitle={selectedTask?.title}
-        comments={
-          boardProps.boardData
-            .flatMap(col => col.tasks)
-            .find(t => t.id === selectedTask?.id)?.comments
-        }
+        comments={activeExtraTaskDetails?.comments}
         onAddComment={(comment) => boardProps.handleAddComment(selectedTask.id, comment)}
         onClose={() => setActiveExtraModal(null)}
       />
@@ -126,11 +131,7 @@ function App() {
       <AttachmentsModal 
         isOpen={activeExtraModal === 'attachments'}
         taskTitle={selectedTask?.title}
-        attachments={
-          boardProps.boardData
-            .flatMap(col => col.tasks)
-            .find(t => t.id === selectedTask?.id)?.attachments
-        }
+        attachments={activeExtraTaskDetails?.attachments}
         onAddAttachment={(file) => boardProps.handleAddAttachment(selectedTask.id, file)}
         onClose={() => setActiveExtraModal(null)}
       />
