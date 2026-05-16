@@ -95,7 +95,7 @@ const Board = ({
       onDragEnd={handleDragEnd}
     >
       <section 
-        className="flex lg:grid lg:grid-cols-3 p-4 lg:p-6 gap-6 lg:gap-8 h-full min-h-[calc(100vh-100px)] overflow-x-auto items-start animate-in fade-in slide-in-from-right-8 duration-700 ease-out"
+        className="flex lg:grid lg:grid-cols-3 p-4 lg:p-6 gap-6 lg:gap-8 h-full min-h-[calc(100vh-100px)] overflow-x-auto items-stretch animate-in fade-in slide-in-from-right-8 duration-700 ease-out"
       >
         {filteredBoardData.map((column, colIndex) => (
           <div 

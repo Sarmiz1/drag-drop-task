@@ -1,76 +1,55 @@
-# Premium Kanban Dashboard
+# Modular Kanban Dashboard
 
-A state-of-the-art, modular Kanban board application built with **React**, **Tailwind CSS**, and **@dnd-kit**. This project showcases high-end UI design, robust state management with custom hooks, and advanced drag-and-drop interactivity.
+A high-performance, accessible, and modular Kanban board application built with React 19, Tailwind CSS 4, and @dnd-kit. This project demonstrates advanced state management patterns, smooth drag-and-drop interactions, and a professional design system tailored for enterprise-level productivity.
 
-![Dashboard Preview](https://images.unsplash.com/photo-1540350394557-8d14678e7f91?auto=format&fit=crop&q=80&w=2000)
+## Core Features
 
-## ✨ Features
+### Advanced Kanban Board
+- Drag and Drop: Fluid task movement between columns powered by @dnd-kit primitives.
+- Interactive Task Cards: Context-aware cards with functional metadata for comments and attachments.
+- Project-Specific Data: Each project in the sidebar maintains its own independent board and task list.
+- Real-time Search: Optimized case-insensitive search across task titles and descriptions.
+- Dynamic Filtering: Priority-based filtering system (High, Medium, Low) for task triaging.
 
-### 📋 Advanced Kanban Board
-- **Smooth Drag & Drop**: Effortlessly move tasks between columns with a responsive drag overlay.
-- **Interactive Task Cards**: All card buttons are now functional. View details, comments, and attachments directly (simulated).
-- **Project-Specific Data**: Each project in the sidebar has its own independent board and task list.
-- **Real-time Search**: Instant case-insensitive search across task titles and descriptions.
-- **Dynamic Filtering**: Toggle priority-based filters (High, Low) to narrow down your view.
+### Navigation and Layout
+- Hierarchical Sidebar: Multi-level navigation including project selection, system filters, and account configuration.
+- Responsive Interface: Adaptive layout optimized for mobile, tablet, and desktop viewports.
+- Integrated Settings: Dedicated modals for profile management and billing configuration accessible via navigation.
 
-### 🧭 Dynamic Sidebar Navigation
-- **Hierarchical Structure**: Multi-level navigation with projects, filters, and settings.
-- **Context-Aware Dashboard**: The top bar automatically reflects your active project selection.
-- **Icon Sidebar**: Quick access to main application modules with beautiful 3D-inspired icons.
+### Technical Performance Optimizations
+- Referential Integrity: Core data structures are memoized using useMemo to prevent unnecessary component re-renders.
+- Efficient Data Access: Derived states for filtering and task lookup are computed only when dependencies change, ensuring a 60FPS UI experience during active interactions.
+- Functional State Updates: Board manipulations use functional state updates to avoid stale closure issues during complex drag-and-drop operations.
+- Optimized Render Cycle: Task cards and columns utilize memoized sensors and event handlers to minimize reconciliation overhead.
 
-### ✨ Premium Aesthetics
-- **Full Life-cycle Animations**: Modals (Info, Settings) now feature both smooth entry and exit transitions (slide + fade).
-- **Dynamic Task Interactions**: Cards respond to hover with a subtle lift, scale, and footer slide-up effect.
-- **Staggered Board Entrance**: Board columns and headers animate in sequence when switching projects.
-- **Tailwind-Powered**: All animations are optimized using utility-first Tailwind classes.
+### Accessibility and User Experience
+- Touch Optimization: Custom touch sensors with long-press detection (250ms) ensure full mobile compatibility without breaking native scroll behavior.
+- Keyboard Support: Full keyboard navigation (Tab, Enter, Space) for all interactive elements, including board columns and task cards.
+- Animation Engine: Native Tailwind CSS animations manage modal transitions (slide and fade) and staggered board entrance effects.
 
-### ⚙️ Integrated Settings
-- **Profile & Billing**: Access advanced settings modals directly from the navigation.
-- **Team Management**: Add new team members dynamically with the functional members card.
-
-### 🛠 Tech Stack
-- **React 19**: Utilizing the latest React features and hooks.
-- **Tailwind CSS 4**: Configuration-less styling with high-performance CSS variables.
-- **@dnd-kit**: A lightweight, modular, and accessible drag-and-drop toolkit.
-- **Lucide React**: Crisp, consistent iconography throughout the app.
-
-## 🏗 Architecture
-
-The project follows a **Modular Custom Hook Architecture**:
-
-- **`useBoard`**: Encapsulates all Kanban logic, managing independent board states for multiple projects and task-level member assignments.
-- **`useSidebar`**: Manages navigation state, project selection, filtering logic, and dynamic title resolution.
-- **`useTeam`**: Handles the team member roster and dynamic member additions.
-- **`useLayout`**: Handles global UI states like mobile menu visibility.
-
-This separation of concerns ensures that components remain "dumb" and focused only on rendering, while the logic is centralized and easy to test.
+## Technology Stack
+- React 19: Leveraging modern React features and the latest hook patterns.
+- Tailwind CSS 4: Next-generation styling with high-performance CSS variables.
+- @dnd-kit: Modular and accessible drag-and-drop toolkit.
+- Lucide React: Consistent and clean iconography.
 
 ## Getting Started
 
-1. **Install Dependencies**:
-
-   ```bash
+1. Install dependencies:
    npm install
-   ```
 
-2. **Run Development Server**:
-
-   ```bash
+2. Run the development server:
    npm run dev
-   ```
 
-3. **Build for Production**:
-   ```bash
+3. Build for production:
    npm run build
-   ```
 
-## 🎨 Design System
+## Architecture
+The project follows a Modular Custom Hook Architecture to separate business logic from UI presentation:
 
-The application uses a "Premium" design aesthetic:
+- useBoard: Encapsulates all Kanban logic, including project switching, task CRUD operations, and drag-and-drop state.
+- useSidebar: Manages navigation state, project selection, and dynamic dashboard titles.
+- useTeam: Handles team member data and dynamic assignments.
+- useLayout: Controls global UI states such as mobile menu visibility and responsive breakpoints.
 
-- **Glassmorphism**: Subtle backdrop blurs and transparent layers.
-- **Vibrant Gradients**: Carefully curated color palettes for a modern feel.
-- **Micro-animations**: Smooth transitions for tab switching and modal openings.
-- **Typography**: Clean, readable font hierarchy using Inter and Roboto.
-
----
+This architecture ensures that components remain focused on rendering while the application logic is centralized, maintainable, and performant.

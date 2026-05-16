@@ -2,7 +2,7 @@ import { Plus } from "lucide-react";
 import { useDroppable } from "@dnd-kit/core";
 
 const BoardColumn = ({ id, title, count = 0, onAddTask, children }) => {
-  const { setNodeRef } = useDroppable({
+  const { setNodeRef, isOver } = useDroppable({
     id: id,
   });
 
@@ -34,7 +34,9 @@ const BoardColumn = ({ id, title, count = 0, onAddTask, children }) => {
       {/* Column Content Area (Droppable Zone) */}
       <div 
         ref={setNodeRef}
-        className="flex flex-col h-full rounded-2xl bg-transparent transition-colors pb-10 min-h-[150px]"
+        className={`flex flex-col h-full rounded-2xl transition-all duration-300 pb-10 min-h-[200px] flex-1 ${
+          isOver ? "bg-blue-50/50 ring-2 ring-blue-200 ring-dashed" : "bg-transparent"
+        }`}
       >
         {children}
       </div>
