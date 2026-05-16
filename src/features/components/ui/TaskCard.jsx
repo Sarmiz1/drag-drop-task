@@ -90,12 +90,24 @@ function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions }) {
         {/* Footer: Meta counts & Assignees */}
         <div className="flex items-center justify-between transform group-hover:-translate-y-0.5 transition-transform duration-300">
           <div className="flex items-center gap-3 text-gray-400">
-            <div className="flex items-center gap-1.5 hover:text-gray-600 transition-colors cursor-pointer">
-              <MessageSquare size={iconSizes.sm} />
+            <div 
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit();
+              }}
+              className="flex items-center gap-1.5 hover:text-blue-600 transition-colors cursor-pointer group/meta"
+            >
+              <MessageSquare size={iconSizes.sm} className="group-hover/meta:scale-110 transition-transform" />
               <span className="text-xs font-medium">{comments}</span>
             </div>
-            <div className="flex items-center gap-1.5 hover:text-gray-600 transition-colors cursor-pointer">
-              <Paperclip size={iconSizes.sm} />
+            <div 
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit();
+              }}
+              className="flex items-center gap-1.5 hover:text-blue-600 transition-colors cursor-pointer group/meta"
+            >
+              <Paperclip size={iconSizes.sm} className="group-hover/meta:scale-110 transition-transform" />
               <span className="text-xs font-medium">{attachments}</span>
             </div>
           </div>
