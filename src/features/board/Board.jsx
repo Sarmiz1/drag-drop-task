@@ -1,6 +1,8 @@
 import {
   DndContext,
   PointerSensor,
+  KeyboardSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   closestCorners,
@@ -10,14 +12,20 @@ import {
 import {
   SortableContext,
   verticalListSortingStrategy,
+  sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import BoardColumn from "./BoardColumn";
 import TaskCard from "../components/ui/TaskCard";
+import TaskModal from "./TaskModal";
 
 const Board = ({ 
   boardData, 
   activeTask, 
+  editingTask,
+  setEditingTask,
   handleAddTask, 
+  handleUpdateTask,
+  handleDeleteTask,
   handleDragStart, 
   handleDragOver, 
   handleDragEnd 
@@ -27,6 +35,15 @@ const Board = ({
       activationConstraint: {
         distance: 8,
       },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
     })
   );
 
@@ -62,13 +79,25 @@ const Board = ({
                 strategy={verticalListSortingStrategy}
               >
                 {column.tasks.map((task) => (
-                  <TaskCard key={task.id} task={task} />
+                  <TaskCard 
+                    key={task.id} 
+                    task={task} 
+                    onEdit={() => setEditingTask(task)}
+                  />
                 ))}
               </SortableContext>
             </BoardColumn>
           </div>
         ))}
       </section>
+
+      {/* Task Edit Modal */}
+      <TaskModal 
+        task={editingTask}
+        onSave={handleUpdateTask}
+        onDelete={handleDeleteTask}
+        onClose={() => setEditingTask(null)}
+      />
 
       <DragOverlay dropAnimation={dropAnimation}>
         {activeTask ? <TaskCard task={activeTask} /> : null}

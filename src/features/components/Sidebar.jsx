@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import SidebarDropdown from "./ui/SidebarDropdown";
-const Sidebar = ({ activeIndex, sidebarTabs, onAddProject }) => {
+const Sidebar = ({ activeIndex, sidebarTabs, onAddProject, onSelectProject }) => {
   return (
     <aside className="w-72 h-[calc(100vh-1rem)] my-2 mr-2 bg-white shadow-xl rounded-[2.5rem] p-7 flex flex-col gap-6 overflow-y-auto shrink-0 border border-gray-100/50">
       {sidebarTabs.map(
@@ -24,7 +24,10 @@ const Sidebar = ({ activeIndex, sidebarTabs, onAddProject }) => {
                 </div>
               </div>
 
-              <SidebarDropdown sidebarTabs={tab.tabContent} />
+              <SidebarDropdown 
+                sidebarTabs={tab.tabContent} 
+                onSelectProject={onSelectProject}
+              />
             </div>
           ),
       )}

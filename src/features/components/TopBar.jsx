@@ -2,9 +2,7 @@ import { Info, Search, Menu } from "lucide-react";
 import MembersCard from "./ui/MembersCard";
 import { teamMembers } from "../../data/initialBoard";
 
-const title = "Cohorts-based courses";
-
-const TopBar = ({ onMenuToggle }) => {
+const TopBar = ({ onMenuToggle, title = "Dashboard" }) => {
   const IconSize = 20;
   const membersCount = teamMembers.length;
 

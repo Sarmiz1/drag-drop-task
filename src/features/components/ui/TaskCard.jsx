@@ -4,7 +4,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-function TaskCard({ task: taskData }) {
+function TaskCard({ task: taskData, onEdit }) {
   const { id, title, description, tag, priority, comments, attachments, assignees } = taskData;
   const { task, iconSizes } = useTheme();
 
@@ -21,7 +21,7 @@ function TaskCard({ task: taskData }) {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    cursor: isDragging ? 'grabbing' : 'grab',
+    cursor: isDragging ? 'grabbing' : 'pointer',
   };
 
   const currentTagStyle = task.tags[tag] || task.defaultTag;
@@ -33,6 +33,7 @@ function TaskCard({ task: taskData }) {
       style={style}
       {...attributes}
       {...listeners}
+      onClick={onEdit}
       className="group w-full bg-white rounded-2xl p-4 mt-4 shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-100 
       hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden touch-none"
     >

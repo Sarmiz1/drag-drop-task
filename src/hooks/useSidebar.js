@@ -28,10 +28,32 @@ export const useSidebar = () => {
     );
   }, []);
 
+  const handleSelectProject = useCallback((projectId) => {
+    setSidebarTabs((prev) =>
+      prev.map((tab) => ({
+        ...tab,
+        tabContent: tab.tabContent.map((group) => ({
+          ...group,
+          contents: group.contents.map((item) => ({
+            ...item,
+            active: item.id === projectId,
+          })),
+        })),
+      }))
+    );
+  }, []);
+
+  const activeProjectTitle = sidebarTabs
+    .flatMap(tab => tab.tabContent)
+    .flatMap(group => group.contents)
+    .find(item => item.active)?.title || "Dashboard";
+
   return {
     activeIndex,
     setActiveIndex,
     sidebarTabs,
+    activeProjectTitle,
     handleAddProject,
+    handleSelectProject,
   };
 };

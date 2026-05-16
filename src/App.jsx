@@ -10,7 +10,7 @@ import { useLayout } from "./hooks/useLayout";
 
 function App() {
   const { mobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useLayout();
-  const { activeIndex, setActiveIndex, sidebarTabs, handleAddProject } = useSidebar();
+  const { activeIndex, setActiveIndex, sidebarTabs, activeProjectTitle, handleAddProject, handleSelectProject } = useSidebar();
   const boardProps = useBoard();
 
   return (
@@ -38,12 +38,16 @@ function App() {
           activeIndex={activeIndex} 
           sidebarTabs={sidebarTabs}
           onAddProject={handleAddProject}
+          onSelectProject={handleSelectProject}
         />
       </div>
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden w-full">
-        <TopBar onMenuToggle={toggleMobileMenu} />
+        <TopBar 
+          onMenuToggle={toggleMobileMenu} 
+          title={activeProjectTitle} 
+        />
         <main className="flex-1 overflow-x-auto overflow-y-hidden">
           <Board {...boardProps} />
         </main>

@@ -1,16 +1,67 @@
-# React + Vite
+# 🚀 Premium Kanban Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A state-of-the-art, modular Kanban board application built with **React**, **Tailwind CSS**, and **@dnd-kit**. This project showcases high-end UI design, robust state management with custom hooks, and advanced drag-and-drop interactivity.
 
-Currently, two official plugins are available:
+![Dashboard Preview](https://images.unsplash.com/photo-1540350394557-8d14678e7f91?auto=format&fit=crop&q=80&w=2000)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+### 📋 Advanced Kanban Board
+- **Smooth Drag & Drop**: Effortlessly move tasks between columns with a responsive drag overlay.
+- **Task Management**: Add, edit, and delete tasks through a premium modal interface.
+- **Priority Indicators**: Visual priority levels (High, Medium, Low) for better organization.
+- **Tagging System**: Categorize tasks with vibrant, color-coded tags.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🧭 Dynamic Sidebar Navigation
+- **Hierarchical Structure**: Multi-level navigation with projects, filters, and settings.
+- **Context-Aware Dashboard**: The top bar automatically reflects your active project selection.
+- **Icon Sidebar**: Quick access to main application modules with beautiful 3D-inspired icons.
 
-## Expanding the ESLint configuration
+### 📱 Responsive & Accessible
+- **Mobile First**: Fully responsive layout with an off-canvas mobile drawer.
+- **Touch Support**: Optimized touch sensors for seamless mobile dragging without breaking scroll.
+- **Keyboard Navigation**: Accessible keyboard coordinates for power users.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🛠 Tech Stack
+- **React 19**: Utilizing the latest React features and hooks.
+- **Tailwind CSS 4**: Configuration-less styling with high-performance CSS variables.
+- **@dnd-kit**: A lightweight, modular, and accessible drag-and-drop toolkit.
+- **Lucide React**: Crisp, consistent iconography throughout the app.
+
+## 🏗 Architecture
+
+The project follows a **Modular Custom Hook Architecture**:
+
+- **`useBoard`**: Encapsulates all Kanban logic, including state transitions and dnd-kit event handlers.
+- **`useSidebar`**: Manages navigation state, project selection, and dynamic title resolution.
+- **`useLayout`**: Handles global UI states like mobile menu visibility.
+
+This separation of concerns ensures that components remain "dumb" and focused only on rendering, while the logic is centralized and easy to test.
+
+## 🚀 Getting Started
+
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Run Development Server**:
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for Production**:
+   ```bash
+   npm run build
+   ```
+
+## 🎨 Design System
+
+The application uses a "Premium" design aesthetic:
+- **Glassmorphism**: Subtle backdrop blurs and transparent layers.
+- **Vibrant Gradients**: Carefully curated color palettes for a modern feel.
+- **Micro-animations**: Smooth transitions for tab switching and modal openings.
+- **Typography**: Clean, readable font hierarchy using Inter and Roboto.
+
+---
+Built with ❤️ by Antigravity

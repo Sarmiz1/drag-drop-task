@@ -5,6 +5,7 @@ import { initialBoardData } from '../data/initialBoard';
 export const useBoard = () => {
   const [boardData, setBoardData] = useState(initialBoardData);
   const [activeTask, setActiveTask] = useState(null);
+  const [editingTask, setEditingTask] = useState(null);
 
   const findColumn = useCallback((id) => {
     if (boardData.find((col) => col.id === id)) {
@@ -17,7 +18,7 @@ export const useBoard = () => {
     const newTask = {
       id: `task-${Date.now()}`,
       title: "New Task",
-      description: "Click to edit description",
+      description: "",
       tag: "Development",
       priority: "Medium",
       comments: 0,
@@ -30,6 +31,31 @@ export const useBoard = () => {
         col.id === columnId ? { ...col, tasks: [newTask, ...col.tasks] } : col
       )
     );
+
+    // Automatically open the editor for the new task
+    setEditingTask({ ...newTask, columnId });
+  }, []);
+
+  const handleUpdateTask = useCallback((updatedTask) => {
+    setBoardData((prev) =>
+      prev.map((col) => ({
+        ...col,
+        tasks: col.tasks.map((task) =>
+          task.id === updatedTask.id ? { ...task, ...updatedTask } : task
+        ),
+      }))
+    );
+    setEditingTask(null);
+  }, []);
+
+  const handleDeleteTask = useCallback((taskId) => {
+    setBoardData((prev) =>
+      prev.map((col) => ({
+        ...col,
+        tasks: col.tasks.filter((task) => task.id !== taskId),
+      }))
+    );
+    setEditingTask(null);
   }, []);
 
   const handleDragStart = useCallback((event) => {
@@ -138,7 +164,11 @@ export const useBoard = () => {
   return {
     boardData,
     activeTask,
+    editingTask,
+    setEditingTask,
     handleAddTask,
+    handleUpdateTask,
+    handleDeleteTask,
     handleDragStart,
     handleDragOver,
     handleDragEnd,
