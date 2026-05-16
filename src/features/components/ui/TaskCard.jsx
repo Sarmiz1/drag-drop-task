@@ -4,7 +4,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions }) {
+function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions, onViewComments, onViewAttachments }) {
   const { id, title, description, tag, priority, comments, attachments, assignees } = taskData;
   const { task, iconSizes } = useTheme();
 
@@ -93,7 +93,7 @@ function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions }) {
             <div 
               onClick={(e) => {
                 e.stopPropagation();
-                onEdit();
+                onViewComments?.();
               }}
               className="flex items-center gap-1.5 hover:text-blue-600 transition-colors cursor-pointer group/meta"
             >
@@ -103,7 +103,7 @@ function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions }) {
             <div 
               onClick={(e) => {
                 e.stopPropagation();
-                onEdit();
+                onViewAttachments?.();
               }}
               className="flex items-center gap-1.5 hover:text-blue-600 transition-colors cursor-pointer group/meta"
             >

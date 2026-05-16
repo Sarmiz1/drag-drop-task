@@ -93,6 +93,8 @@ function App() {
                 boardProps.handleAddTaskMember(taskId, randomMember);
               }
             }}
+            onViewComments={(task) => openExtraModal('comments', task)}
+            onViewAttachments={(task) => openExtraModal('attachments', task)}
           />
         </main>
       </div>
@@ -107,6 +109,18 @@ function App() {
         isOpen={showInfoModal}
         projectTitle={activeProjectTitle}
         onClose={() => setShowInfoModal(false)}
+      />
+
+      <CommentsModal 
+        isOpen={activeExtraModal === 'comments'}
+        taskTitle={selectedTask?.title}
+        onClose={() => setActiveExtraModal(null)}
+      />
+
+      <AttachmentsModal 
+        isOpen={activeExtraModal === 'attachments'}
+        taskTitle={selectedTask?.title}
+        onClose={() => setActiveExtraModal(null)}
       />
     </div>
   );

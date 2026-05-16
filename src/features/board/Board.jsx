@@ -31,7 +31,9 @@ const Board = ({
   handleDragEnd,
   activeFilters = [],
   searchQuery = "",
-  onAddMember
+  onAddMember,
+  onViewComments,
+  onViewAttachments
 }) => {
   // Use a unique key to trigger animations when the board data changes significantly (like project switch)
   // We can't easily get the project ID here unless we pass it, so let's just use the columns as a proxy 
@@ -120,6 +122,8 @@ const Board = ({
                     task={task} 
                     onEdit={() => setEditingTask(task)}
                     onAddMember={onAddMember}
+                    onViewComments={() => onViewComments(task)}
+                    onViewAttachments={() => onViewAttachments(task)}
                   />
                 ))}
               </SortableContext>
