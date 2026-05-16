@@ -28,13 +28,19 @@ A state-of-the-art, modular Kanban board application built with **React**, **Tai
 - **Team Management**: Add new team members dynamically with the functional members card.
 
 ### 📱 Responsive & Accessible
+- **Full Touch Support**: Optimized touch sensors with long-press detection (250ms) for seamless mobile dragging without interfering with page scrolling.
+- **Keyboard Navigation**: Entire application is navigable via keyboard. Use `Tab` to move between projects and tasks, and `Enter`/`Space` to edit or select.
+- **Accessibility (A11y)**: Implemented ARIA roles, expanded states, and high-visibility focus rings for a truly inclusive experience.
 
-- **Mobile First**: Fully responsive layout with an off-canvas mobile drawer.
-- **Touch Support**: Optimized touch sensors for seamless mobile dragging without breaking scroll.
-- **Keyboard Navigation**: Accessible keyboard coordinates for power users.
+### ✨ Premium Aesthetics
+- **Smooth Staggered Animations**: Board content now slides in with a smooth staggered effect whenever you switch projects, creating a lively and premium feel.
+- **Tailwind-Powered**: All animations are built using utility-first Tailwind classes for maximum performance and zero extra bundle weight.
+
+### ⚙️ Integrated Settings
+- **Profile & Billing**: Access advanced settings modals directly from the navigation.
+- **Team Management**: Add new team members dynamically with the functional members card.
 
 ### 🛠 Tech Stack
-
 - **React 19**: Utilizing the latest React features and hooks.
 - **Tailwind CSS 4**: Configuration-less styling with high-performance CSS variables.
 - **@dnd-kit**: A lightweight, modular, and accessible drag-and-drop toolkit.
@@ -44,7 +50,7 @@ A state-of-the-art, modular Kanban board application built with **React**, **Tai
 
 The project follows a **Modular Custom Hook Architecture**:
 
-- **`useBoard`**: Encapsulates all Kanban logic, managing independent board states for multiple projects.
+- **`useBoard`**: Encapsulates all Kanban logic, managing independent board states for multiple projects and task-level member assignments.
 - **`useSidebar`**: Manages navigation state, project selection, filtering logic, and dynamic title resolution.
 - **`useTeam`**: Handles the team member roster and dynamic member additions.
 - **`useLayout`**: Handles global UI states like mobile menu visibility.

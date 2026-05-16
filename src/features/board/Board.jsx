@@ -94,9 +94,15 @@ const Board = ({
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <section className="flex lg:grid lg:grid-cols-3 p-4 lg:p-6 gap-6 lg:gap-8 h-full min-h-[calc(100vh-100px)] overflow-x-auto items-start">
-        {filteredBoardData.map((column) => (
-          <div key={column.id} className="min-w-[320px] lg:min-w-0 w-full h-full">
+      <section 
+        className="flex lg:grid lg:grid-cols-3 p-4 lg:p-6 gap-6 lg:gap-8 h-full min-h-[calc(100vh-100px)] overflow-x-auto items-start animate-in fade-in slide-in-from-right-8 duration-700 ease-out"
+      >
+        {filteredBoardData.map((column, colIndex) => (
+          <div 
+            key={column.id} 
+            className="min-w-[320px] lg:min-w-0 w-full h-full animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out fill-mode-backwards"
+            style={{ animationDelay: `${colIndex * 100}ms` }}
+          >
             <BoardColumn
               id={column.id}
               title={column.title}
@@ -112,6 +118,7 @@ const Board = ({
                     key={task.id} 
                     task={task} 
                     onEdit={() => setEditingTask(task)}
+                    onAddMember={onAddMember}
                   />
                 ))}
               </SortableContext>
