@@ -27,9 +27,38 @@ const Board = ({
   handleUpdateTask,
   handleDeleteTask,
   handleDragStart, 
-  handleDragOver, 
-  handleDragEnd 
+  handleDragEnd,
+  activeFilters = [],
+  searchQuery = "",
+  onAddMember
 }) => {
+  // Use a unique key to trigger animations when the board data changes significantly (like project switch)
+  // We can't easily get the project ID here unless we pass it, so let's just use the columns as a proxy 
+  // or expect it in props.
+  
+  // Filter the data based on active filters and search query
+  const filteredBoardData = boardData.map(column => ({
+    ...column,
+    tasks: column.tasks.filter(task => {
+      // 1. Filter by Search Query
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const matchesTitle = task.title.toLowerCase().includes(query);
+        const matchesDesc = task.description.toLowerCase().includes(query);
+        if (!matchesTitle && !matchesDesc) return false;
+      }
+
+      // 2. Filter by Active Filters (Priority)
+      if (activeFilters.length > 0) {
+        const priorityMatch = activeFilters.some(filter => 
+          filter.toLowerCase().includes(task.priority.toLowerCase())
+        );
+        if (!priorityMatch) return false;
+      }
+      
+      return true;
+    })
+  }));
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -66,7 +95,7 @@ const Board = ({
       onDragEnd={handleDragEnd}
     >
       <section className="flex lg:grid lg:grid-cols-3 p-4 lg:p-6 gap-6 lg:gap-8 h-full min-h-[calc(100vh-100px)] overflow-x-auto items-start">
-        {boardData.map((column) => (
+        {filteredBoardData.map((column) => (
           <div key={column.id} className="min-w-[320px] lg:min-w-0 w-full h-full">
             <BoardColumn
               id={column.id}

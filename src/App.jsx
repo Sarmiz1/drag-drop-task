@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 import TopBar from "./features/components/TopBar";
 import Sidebar from "./features/components/Sidebar";
@@ -7,11 +8,27 @@ import Board from "./features/board/Board";
 import { useBoard } from "./hooks/useBoard";
 import { useSidebar } from "./hooks/useSidebar";
 import { useLayout } from "./hooks/useLayout";
+import { useTeam } from "./hooks/useTeam";
+import SettingsModal from "./features/components/SettingsModal";
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [settingsModal, setSettingsModal] = useState({ isOpen: false, activeTab: "Profile" });
   const { mobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useLayout();
-  const { activeIndex, setActiveIndex, sidebarTabs, activeProjectTitle, handleAddProject, handleSelectProject } = useSidebar();
-  const boardProps = useBoard();
+  const { activeIndex, setActiveIndex, sidebarTabs, activeProjectTitle, activeProjectId, activeFilters, handleAddProject, handleSelectProject } = useSidebar();
+  const { members, handleAddMember } = useTeam();
+  const boardProps = useBoard(activeProjectId);
+
+  const onSelectProject = (itemId) => {
+    const item = handleSelectProject(itemId);
+    // Detect if "Profile" (3001) or "Billing" (3002) was clicked
+    if (itemId === 3001 || itemId === 3002) {
+      setSettingsModal({ 
+        isOpen: true, 
+        activeTab: itemId === 3001 ? "Profile" : "Billing" 
+      });
+    }
+  };
 
   return (
     <div className="flex h-screen bg-gray-50/50 overflow-hidden text-gray-800 relative">
@@ -38,7 +55,7 @@ function App() {
           activeIndex={activeIndex} 
           sidebarTabs={sidebarTabs}
           onAddProject={handleAddProject}
-          onSelectProject={handleSelectProject}
+          onSelectProject={onSelectProject}
         />
       </div>
 
@@ -46,12 +63,30 @@ function App() {
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden w-full">
         <TopBar 
           onMenuToggle={toggleMobileMenu} 
-          title={activeProjectTitle} 
+          title={activeProjectTitle}
+          members={members}
+          onAddMember={handleAddMember}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
         />
         <main className="flex-1 overflow-x-auto overflow-y-hidden">
-          <Board {...boardProps} />
+          <Board 
+            {...boardProps} 
+            activeFilters={activeFilters} 
+            searchQuery={searchQuery}
+            onAddMember={(taskId) => {
+              const randomMember = members[Math.floor(Math.random() * members.length)];
+              boardProps.handleAddTaskMember(taskId, randomMember);
+            }}
+          />
         </main>
       </div>
+
+      <SettingsModal 
+        isOpen={settingsModal.isOpen} 
+        activeTab={settingsModal.activeTab}
+        onClose={() => setSettingsModal({ ...settingsModal, isOpen: false })}
+      />
     </div>
   );
 }

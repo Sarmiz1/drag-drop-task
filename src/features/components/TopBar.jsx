@@ -1,10 +1,9 @@
 import { Info, Search, Menu } from "lucide-react";
 import MembersCard from "./ui/MembersCard";
-import { teamMembers } from "../../data/initialBoard";
 
-const TopBar = ({ onMenuToggle, title = "Dashboard" }) => {
+const TopBar = ({ onMenuToggle, title = "Dashboard", members = [], onAddMember, searchQuery, onSearchChange }) => {
   const IconSize = 20;
-  const membersCount = teamMembers.length;
+  const membersCount = members.length;
 
   return (
     <header className="px-4 lg:px-8 pt-4 lg:pt-6 pb-2 w-full">
@@ -30,6 +29,8 @@ const TopBar = ({ onMenuToggle, title = "Dashboard" }) => {
           <input
             type="text"
             placeholder="Search tasks..."
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
             className="border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all rounded-full py-2.5 pl-11 pr-4 w-[200px] lg:w-[280px] text-sm text-gray-700 placeholder-gray-400"
           />
           <Search
@@ -47,7 +48,7 @@ const TopBar = ({ onMenuToggle, title = "Dashboard" }) => {
         </div>
 
         <div className="ml-auto sm:ml-5 scale-90 sm:scale-100">
-          <MembersCard members={teamMembers} />
+          <MembersCard members={members} onAdd={onAddMember} />
         </div>
       </nav>
     </header>

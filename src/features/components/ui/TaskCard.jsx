@@ -4,7 +4,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-function TaskCard({ task: taskData, onEdit }) {
+function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions }) {
   const { id, title, description, tag, priority, comments, attachments, assignees } = taskData;
   const { task, iconSizes } = useTheme();
 
@@ -24,6 +24,13 @@ function TaskCard({ task: taskData, onEdit }) {
     cursor: isDragging ? 'grabbing' : 'pointer',
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onEdit();
+    }
+  };
+
   const currentTagStyle = task.tags[tag] || task.defaultTag;
   const priorityColor = task.priorities[priority] || task.defaultPriority;
 
@@ -34,8 +41,11 @@ function TaskCard({ task: taskData, onEdit }) {
       {...attributes}
       {...listeners}
       onClick={onEdit}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
       className="group w-full bg-white rounded-2xl p-4 mt-4 shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-100 
-      hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden touch-none"
+      hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden touch-none
+      focus:ring-2 focus:ring-blue-400 outline-none"
     >
       {/* Priority Indicator Line on Left Edge */}
       <div
@@ -50,7 +60,13 @@ function TaskCard({ task: taskData, onEdit }) {
           >
             {tag}
           </span>
-          <button className="text-gray-400 hover:text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-50 hover:bg-gray-100 p-1.5 rounded-md">
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              onMoreOptions?.();
+            }}
+            className="text-gray-400 hover:text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-50 hover:bg-gray-100 p-1.5 rounded-md focus:opacity-100"
+          >
             <Ellipsis size={16} />
           </button>
         </div>
@@ -83,10 +99,14 @@ function TaskCard({ task: taskData, onEdit }) {
             </div>
           </div>
 
-          <div className="scale-90 origin-right">
-            {assignees && assignees.length > 0 && (
-              <MembersCard members={assignees} />
-            )}
+          <div 
+            className="scale-90 origin-right"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <MembersCard 
+              members={assignees} 
+              onAdd={() => onAddMember?.(id)}
+            />
           </div>
         </div>
       </div>

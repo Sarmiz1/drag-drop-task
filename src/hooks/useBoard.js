@@ -2,10 +2,28 @@ import { useState, useCallback } from 'react';
 import { arrayMove } from '@dnd-kit/sortable';
 import { initialBoardData } from '../data/initialBoard';
 
-export const useBoard = () => {
-  const [boardData, setBoardData] = useState(initialBoardData);
+export const useBoard = (activeProjectId) => {
+  // Store boards for each project ID
+  const [allBoards, setAllBoards] = useState({
+    101: initialBoardData, // Default project
+  });
+  
   const [activeTask, setActiveTask] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
+
+  // Get current board or create a default one if it doesn't exist
+  const boardData = allBoards[activeProjectId] || initialBoardData.map(col => ({ ...col, tasks: [] }));
+
+  const setBoardData = useCallback((updater) => {
+    setAllBoards((prev) => {
+      const currentBoard = prev[activeProjectId] || initialBoardData.map(col => ({ ...col, tasks: [] }));
+      const nextBoard = typeof updater === 'function' ? updater(currentBoard) : updater;
+      return {
+        ...prev,
+        [activeProjectId]: nextBoard,
+      };
+    });
+  }, [activeProjectId]);
 
   const findColumn = useCallback((id) => {
     if (boardData.find((col) => col.id === id)) {
@@ -32,9 +50,8 @@ export const useBoard = () => {
       )
     );
 
-    // Automatically open the editor for the new task
     setEditingTask({ ...newTask, columnId });
-  }, []);
+  }, [setBoardData]);
 
   const handleUpdateTask = useCallback((updatedTask) => {
     setBoardData((prev) =>
@@ -46,7 +63,7 @@ export const useBoard = () => {
       }))
     );
     setEditingTask(null);
-  }, []);
+  }, [setBoardData]);
 
   const handleDeleteTask = useCallback((taskId) => {
     setBoardData((prev) =>
@@ -56,7 +73,23 @@ export const useBoard = () => {
       }))
     );
     setEditingTask(null);
-  }, []);
+  }, [setBoardData]);
+
+  const handleAddTaskMember = useCallback((taskId, member) => {
+    setBoardData((prev) =>
+      prev.map((col) => ({
+        ...col,
+        tasks: col.tasks.map((task) =>
+          task.id === taskId
+            ? { 
+                ...task, 
+                assignees: [...(task.assignees || []), member] 
+              }
+            : task
+        ),
+      }))
+    );
+  }, [setBoardData]);
 
   const handleDragStart = useCallback((event) => {
     const { active } = event;
@@ -121,7 +154,7 @@ export const useBoard = () => {
         }
       });
     });
-  }, [findColumn]);
+  }, [findColumn, setBoardData]);
 
   const handleDragEnd = useCallback((event) => {
     const { active, over } = event;
@@ -159,7 +192,7 @@ export const useBoard = () => {
     }
 
     setActiveTask(null);
-  }, [boardData, findColumn]);
+  }, [boardData, findColumn, setBoardData]);
 
   return {
     boardData,
@@ -169,6 +202,7 @@ export const useBoard = () => {
     handleAddTask,
     handleUpdateTask,
     handleDeleteTask,
+    handleAddTaskMember,
     handleDragStart,
     handleDragOver,
     handleDragEnd,
