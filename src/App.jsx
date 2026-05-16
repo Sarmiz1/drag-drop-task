@@ -79,8 +79,10 @@ function App() {
             activeFilters={activeFilters} 
             searchQuery={searchQuery}
             onAddMember={(taskId) => {
-              const randomMember = members[Math.floor(Math.random() * members.length)];
-              boardProps.handleAddTaskMember(taskId, randomMember);
+              if (members && members.length > 0) {
+                const randomMember = members[Math.floor(Math.random() * members.length)];
+                boardProps.handleAddTaskMember(taskId, randomMember);
+              }
             }}
           />
         </main>
