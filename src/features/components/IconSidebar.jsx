@@ -4,7 +4,7 @@ import { Logo } from "./ui/Logo";
 import { useTheme } from "../../context/ThemeContext";
 import { teamMembers, iconSidebarIcons } from "../../data/initialBoard";
 
-const IconSidebar = ({ activeIndex, setActiveIndex }) => {
+const IconSidebar = memo(({ activeIndex, setActiveIndex }) => {
   const { iconSizes } = useTheme();
 
   return (
@@ -69,6 +69,6 @@ const IconSidebar = ({ activeIndex, setActiveIndex }) => {
       </div>
     </div>
   );
-};
+});
 
 export default IconSidebar;

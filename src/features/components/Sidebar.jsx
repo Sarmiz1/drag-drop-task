@@ -6,7 +6,10 @@ const Sidebar = ({ activeIndex, sidebarTabs, onAddProject }) => {
       {sidebarTabs.map(
         (tab) =>
           activeIndex === tab.id && (
-            <div key={tab.id} className="flex-col gap-6">
+            <div 
+              key={tab.id} 
+              className="flex flex-col gap-6 animate-fade-slide"
+            >
               <div className="flex items-center mb-6">
                 <h1 className="text-[22px] font-bold text-gray-800 tracking-tight">
                   {tab.header}

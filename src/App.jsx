@@ -1,63 +1,17 @@
-import { useState } from "react";
 import "./App.css";
 import TopBar from "./features/components/TopBar";
 import Sidebar from "./features/components/Sidebar";
 import IconSidebar from "./features/components/IconSidebar";
 import Board from "./features/board/Board";
 
-import { initialBoardData, sidebarTabs as initialSidebarTabs } from "./data/initialBoard";
+import { useBoard } from "./hooks/useBoard";
+import { useSidebar } from "./hooks/useSidebar";
+import { useLayout } from "./hooks/useLayout";
 
 function App() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  
-  // Lift state for board and sidebar
-  const [boardData, setBoardData] = useState(initialBoardData);
-  const [sidebarTabs, setSidebarTabs] = useState(initialSidebarTabs);
-
-  // Handler to add a new task to a specific column
-  const handleAddTask = (columnId) => {
-    const newTask = {
-      id: `task-${Date.now()}`,
-      title: "New Task",
-      description: "Click to edit description",
-      tag: "Development",
-      priority: "Medium",
-      comments: 0,
-      attachments: 0,
-      assignees: [],
-    };
-
-    setBoardData((prev) =>
-      prev.map((col) =>
-        col.id === columnId ? { ...col, tasks: [newTask, ...col.tasks] } : col
-      )
-    );
-  };
-
-  // Handler to add a new project category (tab content)
-  const handleAddProject = (tabId) => {
-    const newProject = {
-      id: Date.now(),
-      title: "New Project",
-      active: false,
-    };
-
-    setSidebarTabs((prev) =>
-      prev.map((tab) =>
-        tab.id === tabId
-          ? {
-              ...tab,
-              tabContent: tab.tabContent.map((group, index) =>
-                index === 0 
-                  ? { ...group, contents: [...group.contents, newProject] }
-                  : group
-              ),
-            }
-          : tab
-      )
-    );
-  };
+  const { mobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useLayout();
+  const { activeIndex, setActiveIndex, sidebarTabs, handleAddProject } = useSidebar();
+  const boardProps = useBoard();
 
   return (
     <div className="flex h-screen bg-gray-50/50 overflow-hidden text-gray-800 relative">
@@ -65,7 +19,7 @@ function App() {
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/20 z-40 lg:hidden backdrop-blur-sm transition-opacity"
-          onClick={() => setMobileMenuOpen(false)}
+          onClick={closeMobileMenu}
         />
       )}
 
@@ -89,9 +43,9 @@ function App() {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden w-full">
-        <TopBar onMenuToggle={() => setMobileMenuOpen(true)} />
+        <TopBar onMenuToggle={toggleMobileMenu} />
         <main className="flex-1 overflow-x-auto overflow-y-hidden">
-          <Board boardData={boardData} setBoardData={setBoardData} onAddTask={handleAddTask} />
+          <Board {...boardProps} />
         </main>
       </div>
     </div>

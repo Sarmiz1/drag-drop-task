@@ -18,3 +18,20 @@
   /* Links Roboto to font-body utility class */
   --font-body: 'Roboto', sans-serif;
 }
+
+@layer utilities {
+  .animate-fade-slide {
+    animation: fadeSlide 0.4s ease-out forwards;
+  }
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
