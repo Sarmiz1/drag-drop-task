@@ -2,12 +2,17 @@ import React from 'react';
 import { X, Calendar, User, Tag, Activity } from 'lucide-react';
 
 const InfoModal = ({ isOpen, onClose, projectTitle }) => {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
+    <div 
+      className={`fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+        isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      }`}
+      onClick={onClose}
+    >
       <div 
-        className="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
+        className={`bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden transition-all duration-300 ease-out transform ${
+          isOpen ? "translate-y-0 scale-100 opacity-100" : "translate-y-12 scale-95 opacity-0"
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="p-8">

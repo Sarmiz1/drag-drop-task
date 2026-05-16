@@ -44,7 +44,8 @@ function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions }) {
       onKeyDown={handleKeyDown}
       tabIndex={0}
       className="group w-full bg-white rounded-2xl p-4 mt-4 shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-100 
-      hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden touch-none
+      hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:scale-[1.01] hover:border-blue-100
+      transition-all duration-400 ease-out relative overflow-hidden touch-none
       focus:ring-2 focus:ring-blue-400 outline-none animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-backwards"
     >
       {/* Priority Indicator Line on Left Edge */}
@@ -87,7 +88,7 @@ function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions }) {
         <div className="w-full h-[1px] bg-gray-50 mb-3"></div>
 
         {/* Footer: Meta counts & Assignees */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between transform group-hover:-translate-y-0.5 transition-transform duration-300">
           <div className="flex items-center gap-3 text-gray-400">
             <div className="flex items-center gap-1.5 hover:text-gray-600 transition-colors cursor-pointer">
               <MessageSquare size={iconSizes.sm} />
