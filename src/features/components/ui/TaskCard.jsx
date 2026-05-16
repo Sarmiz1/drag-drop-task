@@ -1,18 +1,40 @@
 import { Ellipsis, MessageSquare, Paperclip } from "lucide-react";
 import MembersCard from "./MembersCard";
 import { useTheme } from "../../../context/ThemeContext";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 function TaskCard({ task: taskData }) {
-  const { title, description, tag, priority, comments, attachments, assignees } = taskData;
+  const { id, title, description, tag, priority, comments, attachments, assignees } = taskData;
   const { task, iconSizes } = useTheme();
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    cursor: isDragging ? 'grabbing' : 'grab',
+  };
 
   const currentTagStyle = task.tags[tag] || task.defaultTag;
   const priorityColor = task.priorities[priority] || task.defaultPriority;
 
   return (
     <article
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
       className="group w-full bg-white rounded-2xl p-4 mt-4 shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-100 
-      hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 ease-out cursor-grab active:cursor-grabbing relative overflow-hidden"
+      hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden touch-none"
     >
       {/* Priority Indicator Line on Left Edge */}
       <div

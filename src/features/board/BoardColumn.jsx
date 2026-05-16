@@ -1,6 +1,11 @@
 import { Plus } from "lucide-react";
+import { useDroppable } from "@dnd-kit/core";
 
-const BoardColumn = ({ title, count = 0, children }) => {
+const BoardColumn = ({ id, title, count = 0, onAddTask, children }) => {
+  const { setNodeRef } = useDroppable({
+    id: id,
+  });
+
   return (
     <div className="flex flex-col h-full">
       {/* Column Header */}
@@ -17,6 +22,7 @@ const BoardColumn = ({ title, count = 0, children }) => {
         
         {/* Add Task Button */}
         <button
+          onClick={() => onAddTask(id)}
           className="bg-gray-100 hover:bg-blue-50 w-10 h-6 flex items-center justify-center 
           rounded-full text-gray-400 hover:text-blue-600 transition-colors cursor-pointer ml-auto"
         >
@@ -25,7 +31,10 @@ const BoardColumn = ({ title, count = 0, children }) => {
       </div>
 
       {/* Column Content Area (Droppable Zone) */}
-      <div className="flex flex-col h-full rounded-2xl bg-transparent transition-colors pb-10">
+      <div 
+        ref={setNodeRef}
+        className="flex flex-col h-full rounded-2xl bg-transparent transition-colors pb-10 min-h-[150px]"
+      >
         {children}
       </div>
     </div>

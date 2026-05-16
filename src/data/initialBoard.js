@@ -15,38 +15,74 @@ export const teamMembers = [
 
 export const sidebarTabs = [
   {
-    header: 'Projects',
     id: 0,
+    header: 'Projects',
     tabContent: [
       {
+        id: 1,
+        title: "Main Projects",
+        contents: [
+          { id: 101, title: "Drag & Drop Task", active: true },
+          { id: 102, title: "E-Commerce App", active: false },
+        ],
+      },
+      {
+        id: 2,
+        title: "Archive",
+        contents: [],
+      }
+    ]
+  },
+  {
     id: 1,
-    title: "Projects",
-    contents: [
-      { id: 101, title: "Drag & Drop Task", active: true },
-      { id: 102, title: "E-Commerce App", active: false },
-    ],
+    header: 'Filters',
+    tabContent: [
+      {
+        id: 10,
+        title: "Priority",
+        contents: [
+          { id: 1001, title: "High Priority", active: false },
+          { id: 1002, title: "Low Priority", active: false },
+        ],
+      }
+    ]
   },
   {
     id: 2,
-    title: "Trending",
-    contents: [],
+    header: 'Schedule',
+    tabContent: [
+      {
+        id: 20,
+        title: "Daily",
+        contents: [{ id: 2001, title: "Today's Tasks", active: true }],
+      }
+    ]
   },
   {
     id: 3,
-    title: "Settings",
-    contents: [
-      { id: 301, title: "Account", active: false },
-      { id: 302, title: "Preferences", active: false },
-    ],
+    header: 'Config',
+    tabContent: [
+      {
+        id: 30,
+        title: "Account",
+        contents: [
+          { id: 3001, title: "Profile", active: false },
+          { id: 3002, title: "Billing", active: false },
+        ],
+      }
+    ]
   },
   {
     id: 4,
-    title: "Completed",
-    contents: [],
-  },
+    header: 'Events',
+    tabContent: [
+      {
+        id: 40,
+        title: "Upcoming",
+        contents: [],
+      }
     ]
   }
-  
 ];
 
 export const iconSidebarIcons = [
