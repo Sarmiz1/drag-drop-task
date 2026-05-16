@@ -7,34 +7,22 @@ A state-of-the-art, modular Kanban board application built with **React**, **Tai
 ## ✨ Features
 
 ### 📋 Advanced Kanban Board
-
 - **Smooth Drag & Drop**: Effortlessly move tasks between columns with a responsive drag overlay.
+- **Interactive Task Cards**: All card buttons are now functional. View details, comments, and attachments directly (simulated).
 - **Project-Specific Data**: Each project in the sidebar has its own independent board and task list.
 - **Real-time Search**: Instant case-insensitive search across task titles and descriptions.
 - **Dynamic Filtering**: Toggle priority-based filters (High, Low) to narrow down your view.
-- **Task Management**: Add, edit, and delete tasks through a premium modal interface.
-- **Priority Indicators**: Visual priority levels (High, Medium, Low) for better organization.
-- **Tagging System**: Categorize tasks with vibrant, color-coded tags.
 
 ### 🧭 Dynamic Sidebar Navigation
-
 - **Hierarchical Structure**: Multi-level navigation with projects, filters, and settings.
 - **Context-Aware Dashboard**: The top bar automatically reflects your active project selection.
 - **Icon Sidebar**: Quick access to main application modules with beautiful 3D-inspired icons.
 
-### ⚙️ Integrated Settings
-
-- **Profile & Billing**: Access advanced settings modals directly from the navigation.
-- **Team Management**: Add new team members dynamically with the functional members card.
-
-### 📱 Responsive & Accessible
-- **Full Touch Support**: Optimized touch sensors with long-press detection (250ms) for seamless mobile dragging without interfering with page scrolling.
-- **Keyboard Navigation**: Entire application is navigable via keyboard. Use `Tab` to move between projects and tasks, and `Enter`/`Space` to edit or select.
-- **Accessibility (A11y)**: Implemented ARIA roles, expanded states, and high-visibility focus rings for a truly inclusive experience.
-
 ### ✨ Premium Aesthetics
-- **Smooth Staggered Animations**: Board content now slides in with a smooth staggered effect whenever you switch projects, creating a lively and premium feel.
-- **Tailwind-Powered**: All animations are built using utility-first Tailwind classes for maximum performance and zero extra bundle weight.
+- **Full Life-cycle Animations**: Modals (Info, Settings) now feature both smooth entry and exit transitions (slide + fade).
+- **Dynamic Task Interactions**: Cards respond to hover with a subtle lift, scale, and footer slide-up effect.
+- **Staggered Board Entrance**: Board columns and headers animate in sequence when switching projects.
+- **Tailwind-Powered**: All animations are optimized using utility-first Tailwind classes.
 
 ### ⚙️ Integrated Settings
 - **Profile & Billing**: Access advanced settings modals directly from the navigation.
