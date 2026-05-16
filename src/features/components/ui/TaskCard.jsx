@@ -45,7 +45,7 @@ function TaskCard({ task: taskData, onEdit, onAddMember, onMoreOptions }) {
       tabIndex={0}
       className="group w-full bg-white rounded-2xl p-4 mt-4 shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-100 
       hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden touch-none
-      focus:ring-2 focus:ring-blue-400 outline-none"
+      focus:ring-2 focus:ring-blue-400 outline-none animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-backwards"
     >
       {/* Priority Indicator Line on Left Edge */}
       <div

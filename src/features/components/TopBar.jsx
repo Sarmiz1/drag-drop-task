@@ -1,7 +1,7 @@
 import { Info, Search, Menu } from "lucide-react";
 import MembersCard from "./ui/MembersCard";
 
-const TopBar = ({ onMenuToggle, title = "Dashboard", members = [], onAddMember, searchQuery, onSearchChange }) => {
+const TopBar = ({ onMenuToggle, title = "Dashboard", members = [], onAddMember, searchQuery, onSearchChange, onInfoClick }) => {
   const IconSize = 20;
   const membersCount = members.length;
 
@@ -20,6 +20,7 @@ const TopBar = ({ onMenuToggle, title = "Dashboard", members = [], onAddMember, 
         <div className="flex items-center gap-3">
           <h1 className="text-xl lg:text-2xl font-bold text-gray-800 tracking-tight line-clamp-1">{title}</h1>
           <Info
+            onClick={onInfoClick}
             className="text-gray-400 cursor-pointer hover:text-blue-500 transition-colors hidden sm:block"
             size={IconSize}
           />

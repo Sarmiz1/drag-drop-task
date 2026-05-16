@@ -10,9 +10,11 @@ import { useSidebar } from "./hooks/useSidebar";
 import { useLayout } from "./hooks/useLayout";
 import { useTeam } from "./hooks/useTeam";
 import SettingsModal from "./features/components/SettingsModal";
+import InfoModal from "./features/components/InfoModal";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [showInfoModal, setShowInfoModal] = useState(false);
   const [settingsModal, setSettingsModal] = useState({ isOpen: false, activeTab: "Profile" });
   const { mobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useLayout();
   const { activeIndex, setActiveIndex, sidebarTabs, activeProjectTitle, activeProjectId, activeFilters, handleAddProject, handleSelectProject } = useSidebar();
@@ -68,6 +70,7 @@ function App() {
           onAddMember={handleAddMember}
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
+          onInfoClick={() => setShowInfoModal(true)}
         />
         <main className="flex-1 overflow-x-auto overflow-y-hidden">
           <Board 
@@ -87,6 +90,12 @@ function App() {
         isOpen={settingsModal.isOpen} 
         activeTab={settingsModal.activeTab}
         onClose={() => setSettingsModal({ ...settingsModal, isOpen: false })}
+      />
+
+      <InfoModal 
+        isOpen={showInfoModal}
+        projectTitle={activeProjectTitle}
+        onClose={() => setShowInfoModal(false)}
       />
     </div>
   );
