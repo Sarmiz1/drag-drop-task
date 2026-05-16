@@ -91,6 +91,32 @@ export const useBoard = (activeProjectId) => {
     );
   }, [setBoardData]);
 
+  const handleAddComment = useCallback((taskId, comment) => {
+    setBoardData((prev) =>
+      prev.map((col) => ({
+        ...col,
+        tasks: col.tasks.map((task) =>
+          task.id === taskId
+            ? { ...task, comments: [...(task.comments || []), comment] }
+            : task
+        ),
+      }))
+    );
+  }, [setBoardData]);
+
+  const handleAddAttachment = useCallback((taskId, attachment) => {
+    setBoardData((prev) =>
+      prev.map((col) => ({
+        ...col,
+        tasks: col.tasks.map((task) =>
+          task.id === taskId
+            ? { ...task, attachments: [...(task.attachments || []), attachment] }
+            : task
+        ),
+      }))
+    );
+  }, [setBoardData]);
+
   const handleDragStart = useCallback((event) => {
     const { active } = event;
     const activeId = active.id;
